@@ -24,5 +24,9 @@
         </p>
     </form>
 
+	<p style="color: red;">
+		${msg}
+	</p>
+
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.basic.model.UserVO;
 
@@ -66,12 +67,26 @@ public class ResponseController {
 	@PostMapping("/login")
 	public String login(@RequestParam("userId") String id,
 						@RequestParam("userPw") String pw,
-						@RequestParam("userPwChk") String pwChk) {
+						@RequestParam("userPwChk") String pwChk,
+						RedirectAttributes ra) {
 		
 		System.out.println("/login : POST 요청 발생!");
 		System.out.println("ID : " + id);
 		System.out.println("PW : " + pw);
 		System.out.println("CHK : " + pwChk);
+		
+		if(id.equals("")) {
+			/*
+			 redirect 상황에서 model 객체를 사용하게 되면 
+			 model 내부의 데이터가 재 요청이 들어올 때 파라미터 값으로 붙어서 들어옵니다.
+			 데이터가 url 주소 뒤에 ?와 함께 노출되어 전달됩니다.
+			 model.addAttribute("msg", "아이디는 필수 값입니다!");
+			 */
+			
+			// redirect 상황에서 일회성으로 데이터를 전송할 때 사용하는 메서드.
+			// url 뒤에 데이터가 붙지 않습니다. 한 번 이용한 후에는 알아서 소멸합니다.
+			ra.addFlashAttribute("msg", "아이디는 필수 값이에요!");
+		}
 		
 		return "redirect:/response/login";
 		
