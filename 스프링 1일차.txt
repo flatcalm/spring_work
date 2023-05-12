@@ -8,6 +8,10 @@ Spring.io
 우리는 현재 자바 11 사용하기 때문에 스프링툴3 최신버전 맨 위걸로 받음
 
 
+인코딩 설정
+환경설정에서 enc 검색 후 모두 UTF-8인지 확인
+
+
 서버 톰캣 추가후 더블클릭 오버뷰 부분에서
 Use Tomcat installation 선택
 Publish module contexts to separate XML files 체크

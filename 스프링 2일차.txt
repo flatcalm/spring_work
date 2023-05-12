@@ -1,0 +1,104 @@
+새 프로젝트 생성
+New - Spring Legacy Project - Spring MVC Project - 
+패키지는 com.spring.db
+
+프로젝트를 생성하면 pom.xml을 열어서 버전 관리부터 시작
+java-version -> 11
+org.springframework-version -> 5.3.18
+
+dependency - Sevlet
+artifactId - servlet-api -> javax.servlet-api
+version - 2.5 -> 3.1.0
+
+plugin - org.apache.maven.plugins
+version - 2.5.1 -> 3.5.1
+configuration - source, target - 1.6 -> 11
+
+인코딩 설정을 위해 SpringWebBasic/src/main/webapp/WEB-INF/web.xml 파일 안에 필터 설정 붙여넣기
+
+Servers - 톰캣 서버 - Add and Remove - DB 프로젝트 추가 후 WebBasic 프로젝트 제거
+-> 추가되어있는 서버가 많아질 수록 서버 가동시 추가된 서버를 모두 가동시키기 때문에 
+	오래 걸리거나 렉이 걸릴 수 있다.
+
+
+MySQL 설치
+oracle.com - download - Database - MySQL - MySQL Community (GPL) Downloads » - 
+MySQL Installer for Windows - Windows (x86, 32-bit), MSI Installer - community 버전 다운 - 
+실행 - Developer Default - Next - Check Requirements - Next - Yes - Execute - 설치 대기 - 
+Next - Product Configuration - Next - Type and Networking (포트 설정 등 건드리는 곳) - Next - 
+Authentication Method - Next - Accounts and Roles - mysql, mysql 입력 후 Next - Windows Service - 
+Next - Server File Permissions - Next - Apply Configuration - Execute - Finish - 
+Product Configuraiton - Next - Finish - Next - mysql - check - 
+Status -> Connection succeeded.인지 확인 후 Next - Execute - Finish - Next - Finish
+
+자동으로 실행된 MySQL Workbench에서 MySQL Connections에서 Local instance MySQL80 클릭 후 mysql 입력해 접속
+
+쿼리 입력 창
+ctrl + enter -> 쿼리 실행(오라클과 동일)
+create database spring; - 데이터 베이스 생성
+Navigator 하단 Schemas 탭 새로고침 하면 spring DB 확인 가능
+CREATE USER 'spring'@'localhost' IDENTIFIED BY 'spring'; - 계정 생성
+grant all privileges on spring.* to 'spring'@'localhost'; - 권한 부여
+홈 화면 - MySQL Connections - + 버튼 - 
+Connection Name - spring_practice (커넥션 창에 보일 이름)
+Parameters - Username -> spring - Test Connection - 비밀번호 입력 후 OK - OK - OK
+spring_practice 클릭해서 접속
+USE spring; - USE (DB이름); -> DB 생성
+-> Schemas - 사용할 DB 우클릭 - Set as Default Schema로도 가능하다.
+CREATE TABLE scores (
+    stu_id INT PRIMARY KEY,
+    stu_name VARCHAR(30) NOT NULL,
+    kor INT DEFAULT 0,
+    eng INT DEFAULT 0,
+    math INT DEFAULT 0,
+    total INT DEFAULT 0,
+    average DECIMAL(5 , 2)
+);
+-> 테이블 생성
+schemas 탭에서 scores 테이블 스패너 버튼 클릭 - stu_id에 ai 체크 - apply - apply -finish
+-> 쿼리로 하려면
+CREATE TABLE scores (
+    stu_id INT PRIMARY KEY AUTO_INCREMENT,
+    stu_name VARCHAR(30) NOT NULL,
+    kor INT DEFAULT 0,
+    eng INT DEFAULT 0,
+    math INT DEFAULT 0,
+    total INT DEFAULT 0,
+    average DECIMAL(5 , 2)
+);
+로 작성
+
+
+sts로 돌아와서
+com.spring.db.model 패키지에
+ScoreVO 클래스 생성
+각 변수 선언
+
+WebBasic 내부 pom.xml에서 lombok 라이브러리 긁어와서 DB 프로젝트 pom.xml에 추가 후 저장
+메이븐 업데이트 완료 후 Getter, Setter, ToString 추가
+
+service 패키지
+Service 인터페이스 생성 - 클래스 생성
+
+repository 패키지
+Repository 인터페이스 생성 - 클래스 생성
+
+
+* 아노테이션
+@Controller @Service @Repository @Component
+위 아노테이션들은 이름만 다를뿐 모두 빈 등록을 자동으로 해주는 아노테이션
+이름이 다른 이유는 가독성을 위해 해당 기능을 하는 클래스에 맞춰 
+해당 아노테이션 이름으로 등록을 해주는 것.
+
+@Autowired는 스프링 컨테이너에 등록되어 있는 빈들 중, 
+★ 해당 변수 타입에 맞는 ★
+객체를 자동으로 변수에 주입해 주는 스프링 아노테이션 입니다.
+필드, 생성자, setter 메서드에 붙일 수 있습니다.
+
+
+메이븐 레파지토리에서 검색 후 
+프로젝트 내 pom.xml에 dependency로 추가 (저장 후 업데이트 필수)
+spring-jdbc - version - 5.3.18 -> ${org.springframework-version}
+	-> 작성해두면 스프링 버전과 자동으로 연동
+hikaricp - version - 3.3.1
+mysql connector - MySQL Connector Java - Version - 8.0.33
