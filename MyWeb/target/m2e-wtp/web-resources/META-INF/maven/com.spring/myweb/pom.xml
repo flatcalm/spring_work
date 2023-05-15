@@ -4,16 +4,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.spring</groupId>
-	<artifactId>db</artifactId>
-	<name>SpringDBAccess</name>
+	<artifactId>myweb</artifactId>
+	<name>MyWeb</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+
+	<!-- 자바버전, 스프링 버전 변경 -->
 	<properties>
 		<java-version>11</java-version>
 		<org.springframework-version>5.3.18</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+
+	<!-- 의존성 라이브러리들을 모아놓는 공간. -->
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -92,6 +96,7 @@
 		</dependency>
 
 		<!-- Servlet -->
+		<!-- 참조하는 서블릿 버전 3.1.0 선언 (artifactId가 달라져요) -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -110,13 +115,34 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- Test -->
+		<!-- spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Test
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		 -->
+
+		<!-- 
+		junit-jupiter-api
+		(Junit5 : 테스트 환경을 구성해 주고, 여러 기능을 제공하는 테스트 라이브러리)
+		 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.2</version>
+			<scope>test</scope>
+		</dependency>
+
 
 		<!-- lombok 라이브러리 -->
 		<dependency>
@@ -162,6 +188,8 @@
 		</dependency>
 
 	</dependencies>
+
+	<!-- 메이븐 플랫폼 기반 설정 (배포 및 빌드 과정에 대한 설정) -->
 	<build>
 		<plugins>
 			<plugin>
@@ -178,6 +206,8 @@
 					<downloadJavadocs>true</downloadJavadocs>
 				</configuration>
 			</plugin>
+
+			<!-- 메이븐 컴파일러 버전 3.5.1 변경, 자바 버전도 맞게 변경 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

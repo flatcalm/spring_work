@@ -102,3 +102,8 @@ spring-jdbc - version - 5.3.18 -> ${org.springframework-version}
 	-> 작성해두면 스프링 버전과 자동으로 연동
 hikaricp - version - 3.3.1
 mysql connector - MySQL Connector Java - Version - 8.0.33
+
+
+src\main\webapp\WEB-INF\spring\root-context.xml
+JDBC, DB 관련 빈을 등록하고 관리하는 설정 파일
+히카리 커넥션 풀 빈 등록
