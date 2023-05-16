@@ -1,0 +1,36 @@
+
+MyBatis 설정 파일 생성하는 법
+mybatis-config.xml 파일 생성
+Mapper 파일의 DOCTYPE을 복사 붙여넣기 후 Mapper 부분을 Config 파일에 맞게 수정
+config 파일 작성 후 db-config로 돌아와서 sqlSessionFactory 빈 등록 부분에 
+property name - configLocation
+value - config 파일의 경로
+를 통해 설정 파일을 등록
+
+
+테스트
+
+
+IFreeBoardMapper 복사 붙여넣기
+이름을 IFreeBoardService로 변경
+패키지 경로 수정 후 마우스 오버로 Move 선택
+
+FreeBoardService 서비스 클래스 생성
+@Service 아노테이션 이용해서 빈 등록
+
+com.spring.myweb 패키지에
+FreeBoardController 컨트롤러 클래스 생성
+@Controller 아노테이션 이용해서 빈 등록
+@RequestMapping 아노테이션 이용해서 공통 매핑 지정
+
+
+컨트롤러 테스트를 위해
+com.spring.myweb.freeboard.controller 패키지에 FreeBoardControllerTest 클래스 생성
+
+
+보드 jsp 파일 작성 및 서버 실행 후 테스트
+
+
+파라미터 값을 다르게 보내는 방법
+ex) content?bno=X -> content/X
+경로 수정과 @PathVariable 아노테이션 활용
