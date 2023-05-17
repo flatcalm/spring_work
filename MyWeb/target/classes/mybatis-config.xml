@@ -24,6 +24,7 @@
 	<!-- 별칭을 지정하는 태그 -->
 	<typeAliases>
 		<typeAlias type="com.spring.myweb.command.FreeBoardVO" alias="board" />
+		<typeAlias type="com.spring.myweb.command.UserVO" alias="user" />
 	</typeAliases>
 	
 	<!-- 

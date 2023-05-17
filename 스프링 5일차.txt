@@ -1,0 +1,87 @@
+
+게시판 페이징 구현
+com.spring.myweb.util 패키지에 PageVO 클래스 생성
+같은 패키지에 PageCreator 클래스 생성
+PageCreator는 PageVO 객체의 정보와 게시글 총 개수의 값이 전달되지 않으면 존재 의미가 
+없기 때문에 기본 생성자를 생성하지 않고 PageVO 객체와 articleTotalCount 값을 전달받았을 때만 
+생성될수 있도록 2개의 값을 받는 생성자만을 생성하고 바로 페이지에 필요한 값을 계산하는 
+메서드(로직)을 실행
+
+JUnit Test를 이용해 페이징 구현을 위한 더미 게시글 생성
+
+페이징 구현을 위한 MySQL LIMIT 키워드 사용
+MySQL은 오라클처럼 인라인 뷰를 사용할 필요가 없다.
+오라클도 최신 버전은 LIMIT을 지원하지만 대중적으로 사용하는 버전은 미지원
+(조회할 쿼리문) LIMIT X, Y;
+X -> 가져올 시작 인덱스 값 (0부터 시작)
+Y -> 가져올 결과물 개수
+ex) SELECT * FROM freeboard
+	ORDER BY bno DESC
+	LIMIT 30, 10;
+
+	freeboard 테이블의 bno 내림차순 조회문의 30(X)번째 결과물부터 10(Y)개를 가져옴
+
+
+페이징 처리 후 각 페이지에 해당하는 게시물 값만 받기 위해 게시글 조회 메서드에 
+페이지 객체를 받는 부분 추가
+페이지 구현을 위한 총 게시물 개수를 조회하는 메서드도 추가
+
+매퍼.xml에 조회 로직 수정 및 게시물 개수 로직 추가
+★ 메서드에 리턴 값이 있을 때는 resultType을 명시해줘야함 ★
+매퍼.xml의 쿼리 조회문을 조금 더 깔끔하게 작성하기 위해 
+PageVO 객체에 페이지 시작 값을 구하는 메서드 추가
+컨트롤러에 getList로직에 PageCreator 생성 및 모델에 추가해주는 구문 추가
+
+
+검색 기능 구현
+mybatis 동적 SQL 문법
+검색 조건에 따른 메서드 선언을 줄이기 위한 방법
+넘겨야하는 파라미터 값도 줄이기 위해 PageVO 객체에 검색에 필요한 값도 추가
+동적 SQL 작성
+
+메이븐 레파지토리
+Log4Jdbc Log4j2 JDBC 4 1
+pom.xml 추가 - 메이븐 업데이트
+설정
+MyWeb\src\main\resources 경로에 log4jdbc.log4j2.properties 생성
+
+
+## local oracle
+ora.driverClassName = oracle.jdbc.driver.OracleDriver
+ora.url = jdbc:oracle:thin:@localhost:1521:xe
+ora.username = system
+ora.password = oracle
+
+## local mysql
+mydb.driverClassName = com.mysql.cj.jdbc.Driver
+mydb.url = jdbc:mysql://localhost:3306/spring?serverTimezone=Asia/Seoul
+mydb.username = spring
+mydb.password = spring
+
+
+additivity="false" 중복 로그 출력을 막아주는 속성
+
+
+검색 기능 구현
+
+
+게시판 마무리
+
+
+유저 파트 시작
+MySQL spring DB에 users 테이블 생성
+com.spring.myweb.command 패키지에 UserVO 클래스 생성
+com.spring.myweb.user.mapper 패키지에 IUserMapper 인터페이스 생성
+MyWeb\src\main\resources\mappers 경로에 UserMapper.xml 생성
+FreeBoardMapper.xml에서 mybatis mapper 태그 가져오기
+mapper 태그 열고 namespace로 경로 지정
+db-config.xml에서 SqlSessionFactory IUserMapper 인터페이스 탐색 경로 추가 후 
+빈즈 그래프에서 추가되었는지 확인
+테스트를 위해 
+MyWeb\src\test\java\com\spring\myweb\user\mapper 경로에 UserMapperTest 클래스 생성
+회원가입 테스트 진행
+
+mybatis는 기본적으로는 null 값을 넣어줄 수 없지만 mybatis-config에 
+이전에 설정해둔 jdbcTypeForNull 세팅에 의해 null 값을 넣어줄 수 있다.
+
+mybatis는 변수 값을 2개 이상 넘겨줄 때 인식을 못하기 때문에 3가지 방법을 사용해야한다.
