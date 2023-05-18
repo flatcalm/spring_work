@@ -84,7 +84,10 @@ public class RestControllerTest {
 	public Person getObject(@RequestBody Person p) {
 		log.info(p.toString());
 		
-		return null;
+		p.setName("변경이름");
+		p.setAge(100);
+		
+		return p;
 	}
 
 }

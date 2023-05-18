@@ -49,3 +49,34 @@ RestContorller에서 동기 요청을 하고 싶다면 ModelAndView 객체를 �
 
 @RequestBody를 사용하면 클라이언트 쪽에서 전송하는 JSON 데이터를 
 서버에서 사용하는 자바 언어에 맞게 변환하여 받을 수 있다.
+
+fetch API 활용하여 아이디 중복 검사 구현
+
+Email 인증 구현
+메이븐 레파지토리 - mail - JavaMail API (compat) - 1.4.7 - 코드 복사 후 pom.xml 붙여넣기
+메이븐 레파지토리 - spring-context - Spring Context Support - 5.3.18 - 
+코드 복사 후 pom.xml 붙여넣기 - version - 
+${org.springframework-version} (Spring 버전과 동기화)
+email 관련 자바 빈 등록을 위한 
+File - New - Spring Bean Configuration File - email-config.xml 생성
+
+email 계정 유출 방지를 위한 src\main\resources\properties 경로에 
+email.properties 파일 생성 후 작성
+
+디스패쳐 서블릿을 담당하는 servlet-config.xml로 이동
+PropertySourcesPlaceholderConfigurer 빈 등록 (db-config에서 한번 사용했었음)
+email.properties 등록
+한번에 관리하기 위해 db-config의 hikari.properties 부분도 주석 처리 후 같이 추가
+
+web.xml - servlet - param-value - servlet-config.xml 밑에 email-config.xml도 추가
+email-config.xml 돌아와서 마저 작성
+javaMailProperties로 보안 관련 항목도 추가
+
+네이버 로그인 후 메일로 이동
+환경설정 - POP3/IMAP 설정 - POP3/SMTP 설정 - 사용함 선택 - 저장
+
+com.spring.myweb.util 패키지 - MailSenderService 클래스 생성
+@Component 아노테이션 등록 (빈 등록 아노테이션)
+메일 인증을 위한 각종 메서드 생성
+
+이메일 인증은 내일~

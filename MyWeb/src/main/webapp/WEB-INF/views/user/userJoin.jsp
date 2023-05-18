@@ -113,6 +113,102 @@
 
     <script>
     
+        // 아이디 중복 체크
+        document.getElementById('idCheckBtn').onclick = function() {
+
+            const userId = document.getElementById('userId').value;
+            if(userId === '') {
+                alert('아이디는 필수 값입니다.');
+                return;
+            }
+
+            /*
+            // 아이디 중복확인 비동기 요청 준비
+            const xhr = new XMLHttpRequest();
+
+            // 서버 요청 정보 설정
+            xhr.open('POST', '${pageContext.request.contextPath}/user/idCheck');
+
+            // 요청 정보를 헤더에 설정
+            xhr.setRequestHeader('content-type', 'text/plain');
+            xhr.send(userId);
+
+            xhr.onload = () => {
+                console.log(xhr.status);
+                console.log(xhr.response);
+            }
+            */
+
+            /*
+            # fetch API : 자바스크립트에서 제공하는 비동기 통신 함수.
+            - Promise 객체를 자동으로 리턴하여 손쉽게 통신의 응답 데이터를 
+                소비할 수 있게 해 줍니다. (Promise : 비동기 통신의 순서를 보장하는 문법)
+            - fetch 함수가 리턴하는 Promise 객체는 단순한 응답 JSON 데이터가 아닌 
+                전체적이고, 포괄적인 응답 정보를 가지고 있습니다.
+            - 따라서, 서버가 응답한 여러 정보 중 JSON 데이터만 소비하려면 
+                json()이라는 메서드를 사용합니다.
+            - 문자열 데이터라면 text() 메서드를 사용합니다.
+            */
+
+            /*
+            // fetch('url', {요청 관련 정보 객체})
+            fetch('${pageContext.request.contextPath}/user/idCheck', {
+                method: 'post', 
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: userId
+            })
+            // Promise 객체의 상태가 요청 성공일 시 데이터 후속 처리 진행.
+            .then(res => {
+                // fetch 함수를 통해 비동기 통신이 실행되고, 
+                // 요청이 완료 된 후 then()의 매개 값으로 응답에 관련된 
+                // 함수를 콜백 방식으로 전달합니다.
+                // 함수의 매개 변수를 선언하면 해당 매개 변수로 응답에 관련된 
+                // 전반적인 정보를 가진 응답 정보가 전달됩니다.
+                // console.log(res);
+                // console.log(res.text());
+                return res.text()
+            })
+            .then(data => {
+                console.log(data);
+            });
+            */
+
+            // 요청에 관련된 정보 객체
+            const reqObj = {
+                method: 'post', 
+                headers: {
+                    'Content-Type':'text/plain'
+                },
+                body: userId
+            };
+
+            // 비동기 요청 보내기
+            fetch('${pageContext.request.contextPath}/user/idCheck', reqObj)
+                .then(res => res.text()) // 요청 완료 후 응답 정보에서 텍스트만 빼기
+                    .then(data => { // 텍스트만 뺀 Promise 객체로부터 data 전달받음.
+                        if(data === 'ok') {
+                            // 더 이상 아이디를 작성할 수 없도록 막아주겠다.
+                            document.getElementById('userId').setAttribute('readonly', true);
+                            // 더 이상 버튼을 누를 수 없도록 버튼 비활성화.
+                            document.getElementById('idCheckBtn').setAttribute('disabled', true);
+                            // 메세지 남기기
+                            document.getElementById('msgId').textContent = '사용 가능한 아이디 입니다.';
+                        } else {
+                            document.getElementById('msgId').textContent = '중복된 아이디 입니다.';
+                        }
+                    });
+        } // 아이디 중복 확인 끝.
+
+        // 인증번호 이메일 전송
+        document.getElementById('main-check-btn').onclick = function() {
+            const email = document.getElementById('userEmail1').value + document.getElementById('userEmail2').value;
+            console.log('완성된 email : ' + email);
+            fetch('${pageContext.request.contextPath}/user/mailCheck?email=' + email);
+        }
+
+
         /* 아이디 형식 검사 스크립트 */
         var id = document.getElementById("userId");
         id.onkeyup = function() {
@@ -126,7 +222,7 @@
             var regex = /^[A-Za-z0-9+]{4,12}$/; 
             if(regex.test(document.getElementById("userId").value )) {
                 document.getElementById("userId").style.borderColor = "green";
-                document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다";
+                document.getElementById("msgId").innerHTML = "아이디 중복 체크는 필수 입니다.";
 
             } else {
                 document.getElementById("userId").style.borderColor = "red";
