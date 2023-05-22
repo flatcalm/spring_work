@@ -1,0 +1,46 @@
+mybatis에서 조인 사용 방법 알아보기
+조인이 꼭 필요한 상황을 만들어보기 위해 로그인 시 리턴되는 값을 user 객체가 아닌 id로 수정
+(컨트롤러, 핸들러)
+
+MySQL은 오라클 조인 문법을 못 씀.
+ANSI 표준 조인 문법을 써야함.
+
+마이 페이지에서 회원 정보와 작성한 글 목록을 확인시켜주기 위해 조인을 이용할 것인데, 
+이너 조인을 사용할 경우 작성한 글 목록이 없을 경우 회원 정보도 가져오지 못하기 때문에 
+여기서는 아우터 조인을 사용하는 것이 적절하다.
+(작성한 게시글이 없어도 회원 정보를 가져올 수 있게)
+또 마이 페이지의 내 글 목록에도 페이징 처리를 하기 위해 쿼리문에 LIMIT을 추가.
+MySQL 워크벤치에서 연습작성한 조인문을 매퍼.xml의 getInfo 쪽에 복사 붙여넣기
+WHERE 절 ID 부분 수정
+페이징 처리를 위한 작업
+IUserMapper도 수정
+IUserService도 수정
+UserService도 수정
+
+
+EL에서는 size() 메서드를 쓸 수 없기 때문에 functions JSTL을 추가
+(.size를 작성하면 자동으로 getSize를 호출하기 때문에)
+
+
+freeList에서 페이지 네이션 부분을 긁어와서 userMypage에도 붙여넣기
+
+PageVO에 Mypage에 페이징 구현을 위한 loginId 필드값 추가.
+
+
+댓글 페이지 구현을 위한 DB 댓글 테이블 생성
+CREATE TABLE freereply(
+	rno INT PRIMARY KEY AUTO_INCREMENT,
+	bno INT,
+
+	FOREIGN KEY (bno)
+REFERENCES freeboard(bno)
+	ON DELETE CASCADE,
+
+	reply VARCHAR(1000),
+	reply_id VARCHAR(50),
+	reply_pw VARCHAR(50),
+	reply_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+	update_date DATETIME DEFAULT NULL
+);
+
+com.spring.myweb.command 패키지에 ReplyVO 클래스 생성
