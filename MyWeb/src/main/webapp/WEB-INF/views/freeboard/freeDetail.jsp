@@ -217,7 +217,7 @@
                     let replyList = data.list; // 댓글 리스트
 
                     // 응답 데이터의 길이가 0과 같거나 더 작으면 함수를 종료.
-                    if(replyList.length <= 0) return;
+                    if(replyList.length < 0) return;
 
                     // insert, update, delete 작업 후에는 
                     // 댓글 내용 태그를 누적하고 있는 strAdd 변수를 초기화해서 
