@@ -1,0 +1,7 @@
+EL도 일종의 스크립틀릿이기 때문에 자바 스크립트 내부에서 값을 가져올 수 있다.
+
+암호화 적용을 위해 freereply의 reply_pw를 VARCHAR(100)으로 수정.
+
+LocalDateTime 객체를 JSON으로 표현할 수 있게 하기 위해 
+메이븐 레파지토리 - jackson-datatype - Jackson Datatype: JSR310 - 2.14.2 - 
+pom.xml - dependency에 추가

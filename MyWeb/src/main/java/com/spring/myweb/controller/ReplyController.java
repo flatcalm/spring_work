@@ -1,5 +1,6 @@
 package com.spring.myweb.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,11 @@ public class ReplyController {
 		List<ReplyVO> list = service.getList(bno, pageNum);
 		int total = service.getTotal(bno);
 		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list); // 댓글 목록
+		map.put("total", total); // 게시글에 달려있는 댓글의 총 개수
 		
+		return map;
 	}
 
 }

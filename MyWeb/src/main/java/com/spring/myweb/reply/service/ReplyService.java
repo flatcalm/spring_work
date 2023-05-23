@@ -17,7 +17,7 @@ public class ReplyService implements IReplyService {
 	
 	@Autowired
 	private IReplyMapper mapper;
-	
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	@Override
@@ -37,7 +37,7 @@ public class ReplyService implements IReplyService {
 		data.put("paging", vo); // 페이징 쿼리를 위한 pageNum과 cpp
 		data.put("bno", bno); // 몇번 글의 댓글을 가져올지에 대한 정보
 		
-		return null;
+		return mapper.getList(data);
 	}
 
 	@Override
