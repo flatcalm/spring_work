@@ -99,7 +99,7 @@
                             </div>
                             -->
                         </div>
-                        <button type="button" class="form-control" id="moreList">더보기 (페이징)</button>
+                        <button type="button" class="form-control" id="moreList" style="display: none;">더보기 (페이징)</button>
                     </div>
                 </div>
             </div>
