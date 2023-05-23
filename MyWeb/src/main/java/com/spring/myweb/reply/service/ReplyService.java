@@ -47,20 +47,19 @@ public class ReplyService implements IReplyService {
 
 	@Override
 	public boolean pwCheck(ReplyVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		String dbPw = mapper.pwCheck(vo.getRno());
+		return encoder.matches(vo.getReplyPw(), dbPw);
 	}
 
 	@Override
 	public void update(ReplyVO vo) {
-		// TODO Auto-generated method stub
-
+		mapper.update(vo);
 	}
 
 	@Override
 	public void delete(int rno) {
-		// TODO Auto-generated method stub
-
+		mapper.delete(rno);
 	}
 
 }

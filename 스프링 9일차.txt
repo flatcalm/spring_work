@@ -5,3 +5,11 @@ EL도 일종의 스크립틀릿이기 때문에 자바 스크립트 내부에서
 LocalDateTime 객체를 JSON으로 표현할 수 있게 하기 위해 
 메이븐 레파지토리 - jackson-datatype - Jackson Datatype: JSR310 - 2.14.2 - 
 pom.xml - dependency에 추가
+
+댓글 등록 기능 구현
+
+댓글 목록 표시 구현
+
+댓글 더보기 (페이징) 구현
+
+댓글 수정, 삭제 구현중
