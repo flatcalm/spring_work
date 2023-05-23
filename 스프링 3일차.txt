@@ -54,7 +54,7 @@ param-value -> 바꾼 경로로 수정
 
 servlet
 servlet-name - appServlet
-servlet-class -> 바꾼 경로로 수정
+param-value -> 바꾼 경로로 수정
 
 servlet-config.xml (원본 이름 : servlet-context.xml)
 주석에 각 코드에 대한 설명
@@ -115,4 +115,6 @@ insert 메서드 작성 후 FreeBoardMapperTest로 이동해 테스트
 @DisplayName("값") - 해당 테스트의 이름을 "값"으로 설정
 테스트는 기본적으로 given - when - then 패턴을 따른다. (생략도 가능)
 
-Outline으로 이동 (없다면 상단 Window 탭 - Show View - Outline
+Outline으로 이동 (없다면 상단 Window 탭 - Show View - Outline)
+
+각 메서드 별로 우클릭 - Run As - JUnit Test 실행 가능
