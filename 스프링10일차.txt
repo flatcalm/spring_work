@@ -1,0 +1,22 @@
+댓글 삭제 리스트 문제 해결 검증까지 완료
+
+댓글 날짜 표현 문제 수정
+
+댓글 수정 시 수정시간과 함께 (수정됨) 문구 표시 추가
+
+게시글 목록에서 댓글 개수 표시 추가
+
+파일 업로드 구현
+연습
+views - fileupload 폴더 생성 - upload.jsp 생성
+com.spring.myweb.controller 패키지 - UploadController 클래스 생성
+파일 전송은 기본적으로 post 방식(method) 사용 (용량이 얼마가 될지 모르기 때문에)
+enctype(인코딩 타입)을 "multipart/form-data"로 반드시 지정
+컨트롤러 작성
+
+메이븐 레파지토리 - fileupload - Apache Commons FileUpload - 1.3.3 - 
+pom.xml dependency에 추가
+
+메이븐 레파지토리 - commons io - Apache Commons IO - 2.6 - 
+pom.xml dependency에 추가
+

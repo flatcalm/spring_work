@@ -72,12 +72,14 @@ public class ReplyController {
 		
 	}
 	
+//	public String delete(@PathVariable int rno, @RequestBody String replyPw) {
+//		ReplyVO vo = new ReplyVO(); 
+//		vo.setRno(rno);
+//		vo.setReplyPw(replyPw);
 	// 댓글 삭제 요청
 	@DeleteMapping("/{rno}")
-	public String delete(@PathVariable int rno, @RequestBody String replyPw) {
-		ReplyVO vo = new ReplyVO(); 
+	public String delete(@PathVariable int rno, @RequestBody ReplyVO vo) {
 		vo.setRno(rno);
-		vo.setReplyPw(replyPw);
 		
 		if(service.pwCheck(vo)) {
 			service.delete(rno);
