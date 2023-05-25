@@ -8,8 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.myweb.command.UserVO;
-
 import lombok.extern.slf4j.Slf4j;
 
 // 인터셉터로 사용할 클래스는 HandlerInterceptor 인터페이스를 구현합니다.

@@ -1,0 +1,66 @@
+SNS 게시판 구현
+
+MySQL 테이블 생성
+CREATE TABLE snsboard (
+	bno INT PRIMARY KEY AUTO_INCREMENT,
+    writer VARCHAR(50) NOT NULL,
+    upload_path VARCHAR(100) NOT NULL,
+    file_loca VARCHAR(100) NOT NULL,
+    file_name VARCHAR(50) NOT NULL,
+    file_real_name VARCHAR(50) NOT NULL,
+    content VARCHAR(2000),
+    reg_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+com.spring.myweb.command 패키지에 SnsBoardVO 클래스 생성
+
+com.spring.myweb.snsboard.mapper 패키지에 ISnsBoardMapper 인터페이스 생성
+
+빈 등록을 위해 db.config.xml로 이동
+Beans Graph 등록 잘 됐는지 확인
+
+mybatis-config.xml에서 typeAlias 태그 사용해서 
+com.spring.myweb.command.SnsBoardVO -> sns로 별칭 등록
+
+ReplyMapper.xml 복사 - 붙여넣기 - 이름을 SnsBoardMapper로 수정 내용도 알맞게 수정
+mapper 태그 namespace 경로 수정 - 태그 내용 지우기
+
+
+com.spring.myweb.snsboard.service 클래스에 ISnsBoardService 인터페이스 생성
+ISnsBoardMapper 내용 복사 붙여넣기
+같은 클래스에 ISnsBoardService 인터페이스 Add 후 SnsBoardService 클래스 생성
+
+@Service 아노테이션으로 빈 등록
+@Autowired 이용해서 ISnsBoardMapper mapper 변수명으로 등록
+
+com.spring.myweb.controller 패키지에 SnsBoardController 클래스 생성
+SNS형 게시판을 구현할 것이기 때문에 비동기 방식을 자주 사용할 예정이므로 
+@RestController 아노테이션을 통해 빈 등록
+@RequestMapping("/snsboard")로 공통 매핑 등록
+@Slf4j 로그 등록
+@Autowired 이용해서 ISnsBoardService service 변수명으로 등록
+restcontroller이기 때문에 ModelAndView 객체를 생성해서 
+setViewName 메서드를 통해 페이지 이동 URL을 뷰 리졸버에게 전달
+
+views 폴더에 snsboard 폴더 생성
+snsList.jsp 생성 (강사님이 보내준 파일 사용)
+script 작성
+
+SnsBoardController 게시글 작성을 위한 @PostMapping("/upload") 작성
+ISnsBoardService 작성
+메서드 수정 필요로 인한 ISnsBoardService도 수정
+SnsBoardMapper.xml 작성
+
+접속 편의성을 위한 header.jsp 수정
+SNS 게시판으로 바로 이동할 수 있는 버튼 추가
+
+
+http 코드
+2xx -> success
+3xx -> redirect
+4xx -> request
+5xx -> server
+
+SNS 게시판
+이미지 업로드 가능한 게시물 등록 기능 구현 (업로드 파일 확장자를 통한 검증)
+무한 스크롤 페이징 구현
