@@ -405,8 +405,9 @@
 						</div>
 						<div class="image-inner">
 							<!-- 이미지영역 -->
-							<img src="${pageContext.request.contextPath}/snsboard/display/` + vo.fileLoca + `/` + vo.fileName + `">
-							
+							<a href="` + vo.bno + `">
+								<img data-bno="` + vo.bno + `" src="${pageContext.request.contextPath}/snsboard/display/` + vo.fileLoca + `/` + vo.fileName + `">
+							</a>
 						</div>
 						<div class="like-inner">
 							<!--좋아요-->
@@ -414,7 +415,7 @@
 						</div>
 						<div class="link-inner">
 							<a href="##"><i class="glyphicon glyphicon-thumbs-up"></i>좋아요</a>
-							<a href="` + vo.bno + `"><i class="glyphicon glyphicon-comment"></i>댓글달기</a> 
+							<a data-bno="` + vo.bno + `" id="comment" href="` + vo.bno + `"><i class="glyphicon glyphicon-comment"></i>댓글달기</a> 
 							<a href="` + vo.bno + `"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
 						</div>`
 				}
@@ -428,6 +429,38 @@
 			}); // end fetch
 
 		} // end getList()
+
+		// 상세보기 처리 (모달창 열어줄 겁니다.)
+		document.getElementById('contentDiv').addEventListener('click', e => {
+			e.preventDefault(); // a의 고유 기능 중지
+			console.log('target : ' + e.target);
+
+			if(!e.target.matches('.image-inner img') && !e.target.matches('.link-inner #comment')) {
+				console.log('여기는 이벤트 대상이 아니야!');
+				return;
+			}
+
+			// 글 번호 얻기
+			const bno = e.target.dataset.bno;
+			console.log('bno : ' + bno);
+
+			// fetch 함수를 사용하여 글 상세 보기 요청을 비동기 식으로 요청하세요.
+			// url : /snsboard/content/글번호
+			// 전달 받은 글 내용을 미리 준비한 모달창에 뿌릴 겁니다. (모달 위에 있어요.)
+			// 값을 제 위치에 배치하시고 모달을 열어 주세요.
+			// (부트스트랩 모달이기 때문에 jQuery로 열어주세요.)
+			fetch('${pageContext.request.contextPath}/snsboard/content/' + bno)
+				.then(res => res.json())
+				.then(vo => {
+					console.log(vo);
+					document.getElementById('snsImg').src = '${pageContext.request.contextPath}/snsboard/display/' + vo.fileLoca + '/' + vo.fileName;
+					document.getElementById('snsWriter').textContent = vo.writer;
+					document.getElementById('snsRegdate').textContent = vo.regDate;
+					document.getElementById('snsContent').textContent = vo.content;
+					$('#snsModal').modal('show');
+				});
+
+		})
 
 		/*
 		무한 스크롤 페이징

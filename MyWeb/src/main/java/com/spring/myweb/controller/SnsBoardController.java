@@ -99,5 +99,11 @@ public class SnsBoardController {
 		return result;
 		
 	}
+	
+	// 상세보기 처리
+	@GetMapping("/content/{bno}")
+	public SnsBoardVO getContent(@PathVariable int bno) {
+		return service.getDetail(bno);
+	}
 
 }
