@@ -1,2 +1,23 @@
 SNS 게시판
 게시글 상세보기 구현
+게시글 이미지 다운로드 구현
+
+
+카카오 로그인 구현하기
+카카오 디벨로퍼스 -> 내 애플리케이션 -> 동의 후 가입 -> 애플리케이션 추가하기 -> 
+애플리케이션 이름, 사업자명 입력 - 동의 체크 - 저장
+추가한 애플리케이션 - 플랫폼 - Web 플랫폼 등록
+
+Web 플랫폼 등록을 위한 사이트 도메인 설정
+http://localhost:8080/myweb -> http://localhost:8080
+sts -> Servers -> Tomcat v9.0 Server at localhost-config -> server.xml
+최하단 - Context - path - /myweb -> /
+(/ 빼고 다 지워버리기)
+서버 포트 지우기
+http://localhost:8080 -> http://localhost:80 -> http://localhost
+(80은 URL 접속 시 생략 가능한 기본 포트)
+Servers 탭 - Tomcat v9.0 Server at localhost 더블클릭 - Ports 탭 - HTTP/1.1 - 8181 -> 80
+
+Web 플랫폼 등록
+사이트 도메인 - http://localhost:80 - 저장 - Web 하단 등록하러 가기 - 활성화 설정 ON - 
+하단 Redirect URI 등록 - http://localhost/user/kakao_callback - 저장
