@@ -1,0 +1,52 @@
+카카오 로그인 구현
+
+
+카카오 로그인 API 설정
+
+내 애플리케이션 -> 제품 설정 -> 카카오 로그인 -> 동의 항목 확인
+
+내 애플리케이션 -> 제품 설정 -> 카카오 로그인 -> Client Secret -> 코드 생성
+
+도구 -> 리소스 다운로드 -> 카카오 로그인 -> 전체 다운로드
+압축 해제 후 kakao_login_medium_wide.png 파일 ->
+src\main\webapp\resources\img 경로에 넣기
+
+
+userLogin.jsp 파일에 로그인 버튼 밑에 카카오 로그인 버튼도 추가
+div>button>img 태그
+
+properties 폴더에 kakaoAuth.properties 파일 생성
+kakao.clientId = 내 어플리케이션 - 앱 키 - REST API 키
+kakao.clientSecret = 메뉴 - 보안 - Client Serret - 코드
+
+
+com.spring.myweb.util 패키지에 KakaoService 클래스 생성
+메서드 작성
+경로 설정을 위해 kakaoAuth.properties에 redirectUri 추가
+
+
+xml 말고 클래스에서도 properties 값을 가져오기 위해 servlet-config.xml로 이동
+PropertySourcesPlaceholderConfigurer - beans에 
+beans:value - kakaoAuth.properties 경로 추가 (email.properties 경로 복붙 활용)
+
+KakaoService로 돌아와서 계속 작성
+각 변수 선언 후 @Value 아노테이션을 통해 값 불러오기 (lombok 아님!)
+CSRF 공격 방지를 위해 State 값도 사용 (필수값은 아님)
+작성 완료 후 UserController로 이동
+
+카카오 로그인을 위해 @Autowired 이용해서 작성한 KakaoService 변수 선언해서 주입
+
+
+
+
+com.spring.myweb.command 패키지에 KakaoUserVO 클래스 생성
+@Getter @Setter @ToString
+변수 선언
+@JsonProperty를 통해서 json 데이터를 변수값으로 받아오기
+Json에서 값을 얻어올 때 @JsonProperty를 통해서 얻어오는 것이 FM이지만 
+Json 키 값과 변수 선언명이 같을 때는 생략 가능.
+Json 데이터가 _를 포함한 키 값일 경우 자바 변수명과 다르기 때문에 @JsonProperty를 사용해야 함.
+Json 데이터와 변수명이 다를 경우는 당연히 사용해야함.
+
+
+내부 클래스에 static 선언을 하면 객체 생성 없이 클래스명 만으로 내부 변수에 접근할 수 있다.
