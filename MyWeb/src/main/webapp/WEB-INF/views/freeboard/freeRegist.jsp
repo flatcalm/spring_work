@@ -25,7 +25,7 @@
 	                                <td class="t-title">CONTENT</td>
 	                                <td>
 	                                <textarea class="form-control" rows="7" name="content"></textarea>
-	                                </td>                 
+	                                </td>
 	                            </tr>
 	                        </tbody>
 	                    </table>
